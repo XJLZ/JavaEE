@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>客户信息</title>
+</head>
+<script src="js/jquery-3.3.1.js"></script>
+<body>
+<table  border="1px" width="500px" align="center" style="border-collapse: collapse">
+    <tr>
+        <th>ID</th>
+        <th>用户名</th>
+        <th>地址</th>
+    </tr>
+
+    <tbody id="t">
+        <!--<tr bgcolor="#A87752 ">
+            <th>${customer.id}</th>
+            <th>${customer.name}</th>
+            <th>${customer.address}</th>
+        </tr>-->
+    </tbody>
+
+
+</table>
+</body>
+<script>
+    // $(function ( ) {
+    //     $.post("/ajax/showCustomerInfo",{},function (data) {
+    //         console.log(data);
+    //         console.log(data.length);
+    //         console.log(data[0].name);
+    //         var trs = "";
+    //         for (var i = 0; i < data.length ; i++) {
+    //             var tr = '<tr bgcolor="#A87752 ">\n' +
+    //                         '<th>'+data[i].id+'</th>\n' +
+    //                         '<th>'+data[i].name+'</th>\n' +
+    //                         '<th>'+data[i].address+'</th>\n' +
+    //                      '</tr>'
+    //             trs += tr;
+    //         }
+    //         $("#t").html(trs);
+    //     });
+    // });
+
+    $(function(){
+        $.ajax({
+            url:"/ajax/showCustomerInfo",
+            type:"post",
+            dataType:"json",
+            data:{},
+            success:function(data){
+                console.log(data);
+                show(data);
+            },
+            error:function(xhr,textStatus){
+                console.log(xhr);
+                console.log(textStatus);
+            }
+        });
+
+        function show(data) {
+            console.log("aaa");
+            var trs = "";
+            for (var i = 0; i < data.length ; i++) {
+                var tr = '<tr bgcolor="#A87752 ">\n' +
+                    '<th>'+data[i].id+'</th>\n' +
+                    '<th>'+data[i].name+'</th>\n' +
+                    '<th>'+data[i].address+'</th>\n' +
+                    '</tr>'
+
+                trs += tr;
+            }
+            $("#t").html(trs);
+        }
+    });
+
+</script>
+</html>
